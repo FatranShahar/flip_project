@@ -1,6 +1,8 @@
-from flask import Flask
+from flask import Flask, jsonify
+from flask_cors import CORS  # Import the CORS module
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes in your Flask app
 
 class FlipApp:
     def __init__(self) -> None:
@@ -17,7 +19,7 @@ flip_app = FlipApp()
 @app.route('/update-color', methods=['GET'])
 def update_color():
     flip_app.update_state()
-    return {"status": flip_app.get_current_state()}
+    return jsonify({"status": flip_app.get_current_state()})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000)

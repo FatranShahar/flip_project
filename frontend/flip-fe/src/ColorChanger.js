@@ -5,8 +5,18 @@ const ColorChanger = () => {
   const [color, setColor] = useState("green");
 
   const toggleColor = () => {
-    console.log("hey")
-    setColor(color === "green" ? "red" : "green");
+    axios
+      .get("http://localhost:5000/update-color")
+      .then((response) => {
+        if (response.data.status === 1) {
+          setColor("red");
+        } else {
+          setColor("green");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   };
 
   return (
