@@ -1,0 +1,13 @@
+.vertical-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px; /* Adjust width as needed */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  margin-bottom: 5px;
+}

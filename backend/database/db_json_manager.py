@@ -9,19 +9,25 @@ class DBJsonManager():
             with open(self.json_path, 'wt') as fh:
                 json.dump({}, fh)
 
-    
-    def update_values(self, update_dic):
+    def _get_db_json(self):
         with open(self.json_path, 'rt') as fh:
             db_json = json.load(fh)
+        return db_json
+    
+    def update_values(self, update_dic):
+        db_json = self._get_db_json()
         db_json.update(update_dic)
         with open(self.json_path, 'wt') as fh:
             json.dump(db_json, fh)
         
     def get_value(self, key_name):
-        with open(self.json_path, 'rt') as fh:
-            db_json = json.load(fh)
+        db_json = self._get_db_json()
         if key_name in db_json:
             value = db_json[key_name]
         else:
             value = None
         return value
+    
+    def get_keys(self):
+        db_json = self._get_db_json()
+        return db_json.keys() 
