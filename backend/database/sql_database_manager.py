@@ -8,6 +8,7 @@ class Database():
         self.cursor = self.connection.cursor()
         self.close_connection()
 
+
     # table content should be in the format of:
     # """
     # CREATE TABLE IF NOT EXISTS test (
@@ -18,6 +19,9 @@ class Database():
     # data BLOB
     # )
     # """
+        
+
+    #TODO add try and execpt to open connection    
     def create_table(self, table_content: str):
         self.open_connection()
         self.cursor.execute(table_content)
@@ -39,11 +43,12 @@ class Database():
         self.close_connection()
 
 
-    def test_print(self):
-        query = "select * from test"
+    def test_print(self, name: str):
+        self.open_connection()
+        query = f"select * from {name}"
         df = pd.read_sql_query(query, self.connection)
         print(df)    
-
+        self.close_connection()
 
     def delete_record_from_table(self, record_id: int, table_name: str):
         query = f"DELETE FROM {table_name} WHERE id = {record_id}"
